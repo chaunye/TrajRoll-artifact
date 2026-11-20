@@ -1,0 +1,15 @@
+读到 60 条 SUMMARY，共 3 组：
+  组                 N      总轮数  Σintegral       每轮足迹        正确率
+  b0               20      356     784102     2202.5      5/20 
+  ours             20      249     145104      582.7     16/20 
+  rollback         20      332     128612      387.4      8/20 
+
+=== 预注册 §4：实现自检（不过就不要解读正确率）===
+  [SKIP] 1 足迹单调（本次没跑全 truncate 三档）
+  [SKIP] 2 label 是纯增量（没跑这个臂）
+  [FAIL] 3 |foot(ours)-foot(rollback)|/foot(ours) <= 15%   实测 33.5%（ours=582.7 rollback=387.4）
+  [OK  ] 4 Σintegral(rollback) < Σintegral(b0)
+  [OK  ] 5 wn 分组没错位
+
+[x] 实现自检 **不通过**（1 条）：['3 |foot(ours)-foot(rollback)|/foot(ours) <= 15%']
+    -> 先查实现，别去解读正确率；也不要把这批数拿去改论文。

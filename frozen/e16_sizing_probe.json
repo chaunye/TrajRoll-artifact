@@ -1,0 +1,28 @@
+{
+ "script_sha256_16": "6c6b7eb086359c00",
+ "mode": "probe",
+ "finished_at": "2026-10-05 17:37:42",
+ "victim_L": 30000,
+ "victim_repeats": 180,
+ "victim_prompt_tokens": 29950,
+ "bg_target_tokens": 4000,
+ "decision": {
+  "probe_order": "7,3",
+  "K": 7,
+  "trials": [
+   {
+    "K": 7,
+    "preemptions_delta": 0.0,
+    "metrics_audit": [
+     "vllm:num_preemptions_total{engine=\"0\",model_name=\"Qwen3-4B\"} 0.0",
+     "vllm:num_preemptions_created{engine=\"0\",model_name=\"Qwen3-4B\"} 1.7911927450813262e+09",
+     "vllm:cache_config_info{_block_size_resolved=\"True\",block_size=\"16\",cache_dtype=\"auto\",calculate_kv_scales=\"False\",cpu_kvcache_space_bytes=\"None\",enable_prefix_caching=\"True\",engine=\"0\",gpu_memory_util",
+     "vllm:num_preemptions_total{engine=\"0\",model_name=\"Qwen3-4B\"} 0.0",
+     "vllm:num_preemptions_created{engine=\"0\",model_name=\"Qwen3-4B\"} 1.7911927450813262e+09",
+     "vllm:cache_config_info{_block_size_resolved=\"True\",block_size=\"16\",cache_dtype=\"auto\",calculate_kv_scales=\"False\",cpu_kvcache_space_bytes=\"None\",enable_prefix_caching=\"True\",engine=\"0\",gpu_memory_util"
+    ]
+   }
+  ]
+ },
+ "note": "probe blind to TTFT/ITL by design (prereg red line 2)"
+}

@@ -1,0 +1,4 @@
+group,n,correct,rate,ci_lo,ci_hi,turns_mean,integral_mean,footprint,prefill_mean,rejects,dup
+b0,20,5,0.2500,0.1119,0.4687,17.8,39205,2203,3296,231,1
+ours,20,16,0.8000,0.5840,0.9193,12.4,7255,583,814,27,25
+rollback,20,8,0.4000,0.2188,0.6134,16.6,6431,387,476,15,192

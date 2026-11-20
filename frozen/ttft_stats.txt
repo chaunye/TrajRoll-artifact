@@ -1,0 +1,33 @@
+=== E14 TTFT 判读（判据 = 预注册 §3，冻结）===
+
+--- 数据完整性 ---
+  阶段1 ours        run级 20/20，逐轮 TTFT 行  325（run级合计  361）
+      [!] 逐轮行数(325) ≠ run级 n 合计(361) —— 有日志缺行，先查
+  阶段1 sysend      run级 20/20，逐轮 TTFT 行  292（run级合计  362）
+      [!] 逐轮行数(292) ≠ run级 n 合计(362) —— 有日志缺行，先查
+  阶段1 truncate-4  run级 20/20，逐轮 TTFT 行  247（run级合计  371）
+      [!] 逐轮行数(247) ≠ run级 n 合计(371) —— 有日志缺行，先查
+
+--- V1 单流：TTFT 中位数排序 vs 重算 prefill 排序（预期 ours < sysend < truncate-4）---
+  臂            逐轮TTFT中位  run级p50中位  重算prefill均值
+  ours               26.1 ms         26.6          1193
+  sysend             27.0 ms         27.8          2254
+  truncate-4         26.3 ms         27.5          6039
+  TTFT 排序    = ours < truncate-4 < sysend
+  prefill 排序 = ours < sysend < truncate-4
+  V1 判定：✗ 排序不一致 —— 照登，不解释成支持
+
+--- V2 4 路并发：绝对值上升 + 排序保持 ---
+  ours         单流     26.1 ms → 4way     41.7 ms （×1.60）
+  sysend       单流     27.0 ms → 4way     43.5 ms （×1.61）
+  truncate-4   单流     26.3 ms → 4way     43.0 ms （×1.64）
+  4way 排序 = ours < truncate-4 < sysend
+  V2 判定：绝对值上升 ✓；排序保持 ✓
+
+--- V3 token↔时间桥（阶段1 逐轮，prefill 为重算 token 数）---
+  合并(3臂)       n= 864  r=0.977  95%CI [0.974, 0.980]  斜率 0.0526 ms/tok（截距 22.2 ms）
+  仅ours        n= 325  r=0.224  95%CI [0.118, 0.325]  斜率 0.0199 ms/tok（截距 25.2 ms）
+  仅sysend      n= 292  r=0.888  95%CI [0.861, 0.910]  斜率 0.0490 ms/tok（截距 21.7 ms）
+  仅truncate-4  n= 247  r=0.991  95%CI [0.989, 0.993]  斜率 0.0537 ms/tok（截距 21.8 ms）
+
+>>> 判读判据只有 V1/V2/V3 三条（预注册 §3）；本脚本只出数，档位判定写 week1/C类解禁_结果_判读.md
