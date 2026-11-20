@@ -59,7 +59,7 @@ reader can rerun.
 |---|---|
 | Table II, Fig. 2 (Qwen3-4B, seven strategies, one batch) | `frozen/ablations_summary_N20.txt` |
 | Table II (Qwen3-8B block) | `frozen/l3_qwen3_8b_summary.txt` |
-| Fig. 3(a) placement, 1.00x / 1.85x / 2.78x | `prereg/E11_results.md` (per-arm aggregate of the 60-run batch) |
+| Fig. 3(a) placement, 1.00x / 1.85x / 2.78x | `frozen/placement_summary.txt` (60 runs, one batch) and `prereg/E11_results.md` |
 | Fig. 3(b) TTFT against context length, 46x at 30k | `frozen/e15_ttft_scale.json` |
 | Batched placement tax (p99 inter-token, K = 3 / 7) | `frozen/e16_batched_placement.json`, `frozen/e16_sizing_probe.json` |
 | Content ladder (0/20, 0/20, 12/20, 19/20, 14/20) | `frozen/e12_placebo_summary.txt` |
@@ -81,8 +81,9 @@ Engine: vLLM 0.18.1 serving Qwen3-4B (bf16) on one RTX 4090, started with
     python code/check_ablations.py ablations_summary.txt     # gate, before reading accuracy
     python code/summarize.py ablations_summary.txt --ref ours --csv pareto.csv
 
-    # placement batch (Fig. 3a)
-    NSEED=20 NTRUNC=0 ARMS="ours sysend syshead" bash code/run_ablations.sh
+    # placement batch (Fig. 3a); the shipped 60-run summary reproduces 67.5 / 125.2 / 187.4
+    python code/summarize.py frozen/placement_summary.txt --ref ours
+    # to rerun it: NSEED=20 NTRUNC=0 ARMS="ours sysend syshead" bash code/run_ablations.sh
 
     # field ablation (L2), 60 runs
     NSEED=20 NTRUNC=0 ARMS="b0 ours worldonly" SUMMARY=l2_worldonly_summary.txt \
